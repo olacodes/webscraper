@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    image: webscraper_django
+    container_name: django
+    depends_on:
+      - redis
+      - selenium-browsers
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: /start
+    stdin_open: true
+    tty: true
+
+  selenium-browsers:
+    image: selenium/standalone-chrome
+    container_name: selenium
+    volumes:
+      - ./pdfs:/Downloads
+    restart: always
+    ports:
+      - "4444:4444"
+    shm_size: 2g
+    environment:
+      - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celeryworker:
+    <<: *django
+    image: webscraper-celeryworker
+    container_name: celeryworker
+    depends_on:
+      - redis
+    ports: []
+    command: /start-celeryworker
+
+  flower:
+    <<: *django
+    image: webscraper_flower
+    container_name: flower
+    ports:
+      - "5555:5555"
+    command: /start-flower
