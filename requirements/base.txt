@@ -1,0 +1,21 @@
+pytz==2021.3  # https://github.com/stub42/pytz
+whitenoise==5.3.0  # https://github.com/evansd/whitenoise
+redis==4.1.0  # https://github.com/redis/redis-py
+celery==5.2.3  # pyup: < 6.0  # https://github.com/celery/celery
+flower==1.0.0  # https://github.com/mher/flower
+
+# Request Library
+# ------------------------------------------------------------------------------
+requests==2.26.0 # https://github.com/psf/requests
+aiohttp==3.8.1 # https://docs.aiohttp.org/en/stable/
+
+# Selenium
+selenium==4.2.0
+
+# Django
+# ------------------------------------------------------------------------------
+django==3.2.10  # pyup: < 4.0  # https://www.djangoproject.com/
+django-environ==0.8.1  # https://github.com/joke2k/django-environ
+django-redis==5.2.0  # https://github.com/jazzband/django-redis
+
+
