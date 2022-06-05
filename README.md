@@ -20,7 +20,7 @@
 
 ## A Simple Architecture
 
-![A Web Scrapper Architecture]("./static/web-scrapper-arch.jpeg/")
+![A Web Scrapper Architecture]("static/web-scrapper-arch.jpeg/")
 
 ## Getting Started
 
