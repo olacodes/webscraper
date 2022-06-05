@@ -13,8 +13,8 @@
 - [Selenium](https://www.selenium.dev/) : A free (open-source) automated testing framework used to validate web applications across different browsers and platforms
 - [Celery](https://github.com/celery/celery): A simple, flexible, and reliable distributed system to process vast amounts of tasks
 - [Flower](https://github.com/mher/flower): A web based tool for monitoring and administrating Celery clusters.
+- [SQLite](https://www.sqlite.org/index.html): Application relational databases for development
 - [Redis](https://github.com/redis/redis-py): A NoSQL Database that serves as a Celery Broker and Result Backend
-- [Aiohttp](https://docs.aiohttp.org/en/stable/): An Asynchronous HTTP Client/Server for asyncio and Python.
 - [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions) : Continuous Integration and Deployment
 - [Docker Engine and Docker Compose](https://www.docker.com/) : Containerization of the application and services orchestration
 
@@ -57,8 +57,14 @@ You can also monitor and administer PDF Downloads Background Job with flower. Go
 
 Login with `username: debug` and `password: secret`
 
+### Selenium
+
+Selenium process is running on `http://localhost:4444` 
+
 ## License
 
 The MIT License - Copyright (c) 2022 - Present, WebScraper.
 
-## Contributors
+## Author
+
+Sodiq Olatunde
