@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #25a2b8;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<div class="container center">
+  <div class="d-flex flex-column justify-content-center align-item-center my-5">
+    <h4 class="display-4">A Simple Web Scrapper</h4>
+
+    <p class="lead py-2">
+      Click on the button below to scrape from pdf files from
+      <i>greenbooklive.com</i>
+    </p>
+
+    <button type="button" id="scrape-btn" class="btn btn-info mt-5">
+      Scrape
+    </button>
+
+    <p class="lead text-success success" style="margin: 0 auto"></p>
+    <div class="loader-container py-5" style="display: none; margin: 0 auto">
+      <div class="loader"></div>
+      <div class="lead align-center pt-2">Scrapping PDF URLs</div>
+    </div>
+
+    <button type="button" id="download-btn" class="btn btn-primary mt-5">
+      Download PDF files
+    </button>
+  </div>
+</div>
+
+<script
+  rel="javascript"
+  type="text/javascript"
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+></script>
+
+<!-- <script
+  rel="javascript"
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
+
+<script>
+  var replaceDataSuccess = function (data) {
+    $(".loader-container").css("display", "none");
+    $(".success").append(data);
+    $("#scrape-btn").prop("disabled", false);
+  };
+  var appendDisabled = function () {
+    $("#scrape-btn").prop("disabled", true);
+  };
+
+  var appendLoader = function () {
+    $(".loader-container").css("display", "block");
+  };
+
+  $("#scrape-btn").click(function (e) {
+    e.preventDefault();
+    appendDisabled();
+    appendLoader();
+
+    $.ajax({
+      type: "GET",
+      url: "webscrapper/",
+      success: function (result) {
+        replaceDataSuccess(result);
+      },
+      error: function (result) {
+        alert(result);
+      },
+    });
+  });
+
+  $("#download-btn").click(function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      type: "GET",
+      url: "webscrapper/download-pdf/",
+      success: function(result) {
+        window.location.replace("webscrapper/download-pdf/")
+      }
+    });
+  });
+
+</script>
+
+{% endblock %}
