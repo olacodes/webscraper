@@ -28,7 +28,7 @@ Getting started with this project is very simple, all you need is to have Git an
 
 - Clone the repository `git clone https://github.com/olacodes/webscraper.git`
 - change directory `cd webscraper`.
-- Run `docker-compose up`
+- Run `docker-compose up --build`
   - **NB:** *Running the above command for the first time will download all docker-images and third party packages needed for the app. This will take up to 5 minutes or more for the first build, others will be in a blink of an eye*
 
 At this moment, your project should be up and running and start up the following Servers:
