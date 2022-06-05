@@ -17,4 +17,4 @@ jobs:
       - name: Show Services Logs
         run: docker-compose -f docker-compose.test.yml logs
       - name: Run Tests and Linting Checks
-        run: docker-compose -f docker-compose.test.yml exec django python manage.py test
+        run: docker-compose -f docker-compose.test.yml exec -T django python manage.py test
