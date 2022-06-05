@@ -12,7 +12,7 @@ def PDFwriter(self, url):
     response = requests.get(url)
     with open(f'pdfs/{file_name}', mode='wb') as fd:
         fd.write(response.content)
-    progress_recorder.set_progress(1, 2)
+        progress_recorder.set_progress(1, 1)
 
 
 @shared_task
