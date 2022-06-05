@@ -1,0 +1,20 @@
+name: WebScrapper CI
+
+on: [push, pull_request]
+
+jobs:
+  build-test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Startup Services
+        run: docker-compose -f docker-compose.test.yml up -d
+      - name: Await Services
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
+      - name: Show Services Logs
+        run: docker-compose -f docker-compose.test.yml logs
+      - name: Run Tests and Linting Checks
+        run: docker-compose -f docker-compose.test.yml exec -T django python manage.py test

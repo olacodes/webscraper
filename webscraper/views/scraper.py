@@ -15,9 +15,9 @@ WEB_URL = "https://www.greenbooklive.com/search/companysearch.jsp?from=0&partid=
 
 
 class WebScraperView(View):
-    pdf_urls = []
 
     def get(self, request):
+        pdf_urls = []
         # Instantiate selenium chrome_driver
         driver = Selenium.chrome_driver()
         # url launch
@@ -42,7 +42,7 @@ class WebScraperView(View):
                         By.XPATH, f'//*[@id="search-results"]/tbody/tr[{counter}]/td[4]/a')
                     row_pdf_urls = [pdf_link.get_attribute(
                         'href') for pdf_link in pdf_links]
-                    self.pdf_urls.extend(row_pdf_urls)
+                    pdf_urls.extend(row_pdf_urls)
                 counter += 1
             counter = 1
             # Select the next page
@@ -53,18 +53,12 @@ class WebScraperView(View):
             # implicit wait for next page to load
             driver.implicitly_wait(0.1)
 
-        # print(pdfs)
-        total = len(self.pdf_urls)
-
-        # result = self.celery_download()
-
+        total = len(pdf_urls)
         driver.close()
         driver.quit()
 
-        InsertDBData.delay(self.pdf_urls)
-        # CSVwriter.delay(self.pdf_urls)
-        self.pdf_urls = []
-        # return render(request, 'scrape.html', context={'task_ids': [task for parents in result.children for task in parents.as_list()[::-1]]})
+        # Insert data into the DB handled by Celery
+        InsertDBData.delay(pdf_urls)
         return HttpResponse(f"Successfully scraped {total} pdf urls from {pages_len} pages")
 
 
