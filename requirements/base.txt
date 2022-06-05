@@ -10,7 +10,6 @@ celery-progress==0.1.2 # https://github.com/czue/celery-progress
 # Request Library
 # ------------------------------------------------------------------------------
 requests==2.26.0 # https://github.com/psf/requests
-aiohttp==3.8.1 # https://docs.aiohttp.org/en/stable/
 
 # Selenium
 selenium==4.2.0
