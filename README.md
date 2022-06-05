@@ -55,7 +55,7 @@ Make sure that all the above servers are running before you start exploring the 
 
 You can also monitor and administer PDF Downloads Background Job with flower. Go to `http://localhost:5555` on your browser.
 
-Login with `username: debug` and `password: debug`
+Login with `username: debug` and `password: secret`
 
 ## License
 
