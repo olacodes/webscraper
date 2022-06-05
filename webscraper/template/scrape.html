@@ -1,1 +1,55 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width: 10%">#</th>
+        <th scope="col" style="width: 20%">Task id</th>
+        <th scope="col" style="width: 30% !important">Status</th>
+        <th scope="col" style="width: 30%">Result</th>
+        <!-- <th scope="col" style="width: 10%"></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for task_id in task_ids %}
+      <div class="progress-wrapper-{{ forloop.counter0 }}">
+        <tr>
+          <th scope="row">{{forloop.counter }}</th>
+          <td>{{task_id}}</td>
+          <td
+            id="progress-bar-{{ forloop.counter0 }}"
+            class="progress-bar-{{ forloop.counter0 }}"
+            style="background-color: #68a9ef"
+          >
+            &nbsp;
+          </td>
+          <td
+            id="progress-bar-message-{{ forloop.counter0 }}"
+            style="width: 30%"
+          >
+            Waiting for
+          </td>
+          <!-- <td id="progress-result-{{ forloop.counter0 }}"></td> -->
+        </tr>
+      </div>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const task_urls = [
+          {% for task_id in task_ids %}"{% url 'celery_progress:task_status' task_id %}",
+      {% endfor %}];
+      for (var i = 0; i < task_urls.length; i++) {
+          CeleryProgressBar.initProgressBar(task_urls[i],  {
+              progressBarId: "progress-bar-" + i,
+              progressBarMessageId: "progress-bar-message-" + i,
+              resultElementId: "progress-result-" + i,
+          });
+      }
+  });
+</script>
+
+{% endblock content %}
